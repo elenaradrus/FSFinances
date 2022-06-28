@@ -4,9 +4,9 @@ const bcrypt = require("bcrypt");
 
 const user = {
     saveDataForm: (req, res) => {
-        let nombre = req.body.nombre;
-        let email = req.body.email;
-        let contrasena = req.body.contrasena;
+        const nombre = req.body.nombre;
+        const email = req.body.email;
+        const contrasena = req.body.contrasena;
         const emailExp = new RegExp(/^([\d\w_\.-]+)@([\d\w\.-]+)\.([\w\.]{3})$/);
         const nameExp = new RegExp(/^([A-Za-z]{1,15})$/);
         const passExp = new RegExp(
@@ -20,41 +20,62 @@ const user = {
         ) {
             console.log("campos incorrectos"); //renderizar una pagina de campos incorrectos
         } else {
-            bcrypt.hash(contrasena, 10, (err, palabraSecretaEncriptada) => {
-                if (err) {
-                    console.log("Error hasheando:", err);
+            const getUsers = `SELECT email FROM Usuarios WHERE email = '${email}'`;
+            connection.query(getUsers, (err, result) => {
+                if (result.length > 0) {
+                    console.log("Ya existe")
                 } else {
-                    console.log("Y hasheada es: " + palabraSecretaEncriptada);
-                    palabraEncriptada = palabraSecretaEncriptada;
+                    bcrypt.hash(contrasena, 10, (err, palabraSecretaEncriptada) => {
+                        if (err) {
+                            console.log("No se ha podido encriptar la contraseña ", err);
+                        } else {
+                            palabraEncriptada = palabraSecretaEncriptada;
 
+                            let insertQuery = `INSERT INTO Usuarios
+                                (
+                                    nombre, email, contrasena
+                                )
+                                VALUES
+                                (
+                                    ?, ?, ?
+                                )`;
 
+                            let query = mysql.format(insertQuery, [
+                                nombre,
+                                email,
+                                palabraEncriptada
+                            ]);
+                            connection.query(query, (err, data) => {
+                                if (err) throw err;
+                                console.log(data);
+                            });
 
-                    let insertQuery = `INSERT INTO Usuarios
-                    (
-                        nombre, email, contrasena
-                    )
-                    VALUES
-                    (
-                        ?, ?, ?
-                    )`;
-
-
-                    let query = mysql.format(insertQuery, [
-                        nombre,
-                        email,
-                        palabraEncriptada
-                    ]);
-                    connection.query(query, (err, data) => {
-                        if (err) throw err;
-                        console.log(data);
+                            res.send("Registro completado correctamente");
+                        }
                     });
-
-                    res.send("Registro completado correctamente");
                 }
 
             });
         }
+    },
+    login: (req, res) => {
+        loginEmail = req.body.loginEmail;
+        passLog = req.body.passLog;
+
+        let nameCorrect = `SELECT email,contrasena FROM Usuarios where email = '${loginEmail}'`;
+
+        connection.query(nameCorrect, (err, rows) => {
+            if (err) throw err;
+            bcrypt.compare(passLog, rows[0].contrasena).then(function (result) {
+                if (result && rows[0].email == loginEmail) {
+                    res.send("Usuario Correcto");
+                } else {
+                    res.send("Usuario incorrecto");
+                }
+            });
+        });
     }
 }
+
 
 module.exports = user;
