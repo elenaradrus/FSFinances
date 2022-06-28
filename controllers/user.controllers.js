@@ -23,7 +23,7 @@ const user = {
             const getUsers = `SELECT email FROM Usuarios WHERE email = '${email}'`;
             connection.query(getUsers, (err, result) => {
                 if (result.length > 0) {
-                    console.log("Ya existe")
+                    res.send("Usuario ya registrado")
                 } else {
                     bcrypt.hash(contrasena, 10, (err, palabraSecretaEncriptada) => {
                         if (err) {
