@@ -104,6 +104,16 @@ const user = {
         } else {
             res.send("Algún campo está vacío");
         }
+    },
+    ingresos: (req, res) => {
+        const income = req.body.income;
+        const expectedSavings = req.body.expectedSavings;
+
+        if(typeof income == 'number' && typeof expectedSavings == 'number') {
+            res.send("correcto")
+        } else {
+            res.send("No es un número")
+        }
     }
 }
 
