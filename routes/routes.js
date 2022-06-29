@@ -8,6 +8,7 @@ const pages = require("../controllers/pages.controllers");
 router.get("/",pages.home);
 router.post("/registro",user.saveDataForm);
 router.post("/login",user.login);
+router.post("/contacto",user.contacto);
 
 
 module.exports = router;

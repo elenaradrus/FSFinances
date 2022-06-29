@@ -1,6 +1,9 @@
 const connection = require("../database/sqlDB");
 const mysql = require("mysql");
 const bcrypt = require("bcrypt");
+const url = "mongodb://127.0.0.1:27017/test";
+const mongo = require("mongodb");
+const MongoClient = mongo.MongoClient;
 
 const user = {
     saveDataForm: (req, res) => {
@@ -74,6 +77,33 @@ const user = {
                 }
             });
         });
+    },
+    contacto: (req, res) => {
+        const contactName = req.body.contactName;
+        const contactEmail = req.body.contactEmail;
+        const contactMessage = req.body.contactMessage;
+
+        const mongoDB = "Finanzas";
+        const colection = "Contacto";
+        const data = { "nombre": contactName, "email": contactEmail, "mensaje": contactMessage };
+
+        if (contactName && contactEmail && contactMessage) {
+            
+            MongoClient.connect(url, function (err, db) {
+                if (err) throw err;
+                var dbo = db.db(mongoDB);
+        
+                dbo.collection(colection).insertOne(data, function (err, res) {
+                    if (err) throw err;
+                    console.log("Documento insertado");
+                    db.close();
+                });
+            });
+
+            res.send("Mensaje enviado");
+        } else {
+            res.send("Algún campo está vacío");
+        }
     }
 }
 
