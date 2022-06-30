@@ -10,6 +10,7 @@ router.post("/registro",user.saveDataForm);
 router.post("/login",user.login);
 router.post("/contacto",user.contacto);
 router.post("/ingresos",user.ingresos);
+router.post("/finanzas",user.finanzas);
 
 
 module.exports = router;

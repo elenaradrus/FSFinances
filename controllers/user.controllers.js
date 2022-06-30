@@ -114,6 +114,112 @@ const user = {
         } else {
             res.send("No es un número")
         }
+    },
+    finanzas: (req, res) => {
+        const title = req.body.title;
+        const day = req.body.day;
+        const description = req.body.description;
+        const amount = req.body.amount;
+
+        if(
+            title == 'Hogar' && 
+            typeof day == 'number' && 
+            typeof description == 'string' && 
+            typeof amount == 'number'
+            ) {
+                const insertHogar = `INSERT INTO GastosHogar
+                    (
+                    dia, descripcion, precio
+                    )
+                    VALUES
+                    (
+                    ?, ?, ?
+                    )`;
+                
+                let dataHogar = mysql.format(insertHogar, [day,description,amount]);
+
+                connection.query(dataHogar, (err, data) => {
+                    if (err) throw err;
+                    console.log(data);
+                    console.log('Datos Hogar insertados en DB');
+                });
+
+
+                res.send('Todo correcto');
+
+        } else if(
+            title == 'Supermercados' && 
+            typeof day == 'number' && 
+            typeof description == 'string' && 
+            typeof amount == 'number'
+            ) {
+                const insertSupermercados = `INSERT INTO GastosSupermercados
+                    (
+                    dia, descripcion, precio
+                    )
+                    VALUES
+                    (
+                    ?, ?, ?
+                    )`;
+                
+                let dataSupermercados = mysql.format(insertSupermercados, [day,description,amount]);
+
+                connection.query(dataSupermercados, (err, data) => {
+                    if (err) throw err;
+                    console.log(data);
+                    console.log('Datos Supermercados insertados en DB');
+                });
+                res.send('Todo correcto');
+        } else if (
+            title == 'Restaurantes' && 
+            typeof day == 'number' && 
+            typeof description == 'string' && 
+            typeof amount == 'number'
+            ) {
+                const insertRestaurantes = `INSERT INTO GastosRestaurantes
+                    (
+                    dia, descripcion, precio
+                    )
+                    VALUES
+                    (
+                    ?, ?, ?
+                    )`;
+                
+                let dataRestaurantes = mysql.format(insertRestaurantes, [day,description,amount]);
+
+                connection.query(dataRestaurantes, (err, data) => {
+                    if (err) throw err;
+                    console.log(data);
+                    console.log('Datos Restaurantes insertados en DB');
+                });
+                res.send('Todo correcto');
+
+        } else if(
+            title == 'Ocio' && 
+            typeof day == 'number' && 
+            typeof description == 'string' && 
+            typeof amount == 'number'
+            ) {
+                const insertOcio = `INSERT INTO GastosOcio
+                    (
+                    dia, descripcion, precio
+                    )
+                    VALUES
+                    (
+                    ?, ?, ?
+                    )`;
+                
+                let dataOcio = mysql.format(insertOcio, [day,description,amount]);
+
+                connection.query(dataOcio, (err, data) => {
+                    if (err) throw err;
+                    console.log(data);
+                    console.log('Datos Ocio insertados en DB');
+                });
+                res.send('Todo correcto');
+        }  else {
+            res.send('Campos incorrectos');
+        }
     }
 }
 
