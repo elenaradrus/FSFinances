@@ -35,6 +35,8 @@ CREATE TABLE GastosHogar (
     PRIMARY KEY (id)
 );
 
+SELECT * FROM GastosHogar;
+
 CREATE TABLE GastosSupermercados (
     id INT AUTO_INCREMENT,
     dia VARCHAR(100) NOT NULL,
@@ -43,6 +45,8 @@ CREATE TABLE GastosSupermercados (
     total VARCHAR(100),
     PRIMARY KEY (id)
 );
+
+SELECT * FROM GastosSupermercados;
 
 CREATE TABLE GastosRestaurantes (
     id INT AUTO_INCREMENT,
@@ -53,6 +57,8 @@ CREATE TABLE GastosRestaurantes (
     PRIMARY KEY (id)
 );
 
+SELECT * FROM GastosRestaurantes;
+
 CREATE TABLE GastosOcio (
     id INT AUTO_INCREMENT,
     dia VARCHAR(100) NOT NULL,
@@ -61,6 +67,8 @@ CREATE TABLE GastosOcio (
     total VARCHAR(100),
     PRIMARY KEY (id)
 );
+
+SELECT * FROM GastosOcio;
 
 CREATE TABLE GastosHogar_Usuarios(
 id INT AUTO_INCREMENT,

@@ -88,11 +88,11 @@ const user = {
         const data = { "nombre": contactName, "email": contactEmail, "mensaje": contactMessage };
 
         if (contactName && contactEmail && contactMessage) {
-            
+
             MongoClient.connect(url, function (err, db) {
                 if (err) throw err;
                 var dbo = db.db(mongoDB);
-        
+
                 dbo.collection(colection).insertOne(data, function (err, res) {
                     if (err) throw err;
                     console.log("Documento insertado");
@@ -109,7 +109,7 @@ const user = {
         const income = req.body.income;
         const expectedSavings = req.body.expectedSavings;
 
-        if(typeof income == 'number' && typeof expectedSavings == 'number') {
+        if (typeof income == 'number' && typeof expectedSavings == 'number') {
             res.send("correcto")
         } else {
             res.send("No es un número")
@@ -121,13 +121,13 @@ const user = {
         const description = req.body.description;
         const amount = req.body.amount;
 
-        if(
-            title == 'Hogar' && 
-            typeof day == 'number' && 
-            typeof description == 'string' && 
+        if (
+            title == 'Hogar' &&
+            typeof day == 'number' &&
+            typeof description == 'string' &&
             typeof amount == 'number'
-            ) {
-                const insertHogar = `INSERT INTO GastosHogar
+        ) {
+            const insertHogar = `INSERT INTO GastosHogar
                     (
                     dia, descripcion, precio
                     )
@@ -135,48 +135,25 @@ const user = {
                     (
                     ?, ?, ?
                     )`;
-                
-                let dataHogar = mysql.format(insertHogar, [day,description,amount]);
 
-                connection.query(dataHogar, (err, data) => {
-                    if (err) throw err;
-                    console.log(data);
-                    console.log('Datos Hogar insertados en DB');
-                });
+            let dataHogar = mysql.format(insertHogar, [day, description, amount]);
+
+            connection.query(dataHogar, (err, data) => {
+                if (err) throw err;
+                console.log(data);
+                console.log('Datos Hogar insertados en DB');
+            });
 
 
-                res.send('Todo correcto');
+            res.send('Todo correcto');
 
-        } else if(
-            title == 'Supermercados' && 
-            typeof day == 'number' && 
-            typeof description == 'string' && 
-            typeof amount == 'number'
-            ) {
-                const insertSupermercados = `INSERT INTO GastosSupermercados
-                    (
-                    dia, descripcion, precio
-                    )
-                    VALUES
-                    (
-                    ?, ?, ?
-                    )`;
-                
-                let dataSupermercados = mysql.format(insertSupermercados, [day,description,amount]);
-
-                connection.query(dataSupermercados, (err, data) => {
-                    if (err) throw err;
-                    console.log(data);
-                    console.log('Datos Supermercados insertados en DB');
-                });
-                res.send('Todo correcto');
         } else if (
-            title == 'Restaurantes' && 
-            typeof day == 'number' && 
-            typeof description == 'string' && 
+            title == 'Supermercados' &&
+            typeof day == 'number' &&
+            typeof description == 'string' &&
             typeof amount == 'number'
-            ) {
-                const insertRestaurantes = `INSERT INTO GastosRestaurantes
+        ) {
+            const insertSupermercados = `INSERT INTO GastosSupermercados
                     (
                     dia, descripcion, precio
                     )
@@ -184,23 +161,22 @@ const user = {
                     (
                     ?, ?, ?
                     )`;
-                
-                let dataRestaurantes = mysql.format(insertRestaurantes, [day,description,amount]);
 
-                connection.query(dataRestaurantes, (err, data) => {
-                    if (err) throw err;
-                    console.log(data);
-                    console.log('Datos Restaurantes insertados en DB');
-                });
-                res.send('Todo correcto');
+            let dataSupermercados = mysql.format(insertSupermercados, [day, description, amount]);
 
-        } else if(
-            title == 'Ocio' && 
-            typeof day == 'number' && 
-            typeof description == 'string' && 
+            connection.query(dataSupermercados, (err, data) => {
+                if (err) throw err;
+                console.log(data);
+                console.log('Datos Supermercados insertados en DB');
+            });
+            res.send('Todo correcto');
+        } else if (
+            title == 'Restaurantes' &&
+            typeof day == 'number' &&
+            typeof description == 'string' &&
             typeof amount == 'number'
-            ) {
-                const insertOcio = `INSERT INTO GastosOcio
+        ) {
+            const insertRestaurantes = `INSERT INTO GastosRestaurantes
                     (
                     dia, descripcion, precio
                     )
@@ -208,16 +184,40 @@ const user = {
                     (
                     ?, ?, ?
                     )`;
-                
-                let dataOcio = mysql.format(insertOcio, [day,description,amount]);
 
-                connection.query(dataOcio, (err, data) => {
-                    if (err) throw err;
-                    console.log(data);
-                    console.log('Datos Ocio insertados en DB');
-                });
-                res.send('Todo correcto');
-        }  else {
+            let dataRestaurantes = mysql.format(insertRestaurantes, [day, description, amount]);
+
+            connection.query(dataRestaurantes, (err, data) => {
+                if (err) throw err;
+                console.log(data);
+                console.log('Datos Restaurantes insertados en DB');
+            });
+            res.send('Todo correcto');
+
+        } else if (
+            title == 'Ocio' &&
+            typeof day == 'number' &&
+            typeof description == 'string' &&
+            typeof amount == 'number'
+        ) {
+            const insertOcio = `INSERT INTO GastosOcio
+                    (
+                    dia, descripcion, precio
+                    )
+                    VALUES
+                    (
+                    ?, ?, ?
+                    )`;
+
+            let dataOcio = mysql.format(insertOcio, [day, description, amount]);
+
+            connection.query(dataOcio, (err, data) => {
+                if (err) throw err;
+                console.log(data);
+                console.log('Datos Ocio insertados en DB');
+            });
+            res.send('Todo correcto');
+        } else {
             res.send('Campos incorrectos');
         }
     }
