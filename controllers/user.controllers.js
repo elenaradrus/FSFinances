@@ -7,9 +7,9 @@ const MongoClient = mongo.MongoClient;
 
 const user = {
     saveDataForm: (req, res) => {
-        const nombre = req.body.nombre;
-        const email = req.body.email;
-        const contrasena = req.body.contrasena;
+        const nombre = req.body.accountName;
+        const email = req.body.accountEmail;
+        const contrasena = req.body.accountPassword;
         const emailExp = new RegExp(/^([\d\w_\.-]+)@([\d\w\.-]+)\.([\w\.]{3})$/);
         const nameExp = new RegExp(/^([A-Za-z]{1,15})$/);
         const passExp = new RegExp(
@@ -79,9 +79,9 @@ const user = {
         });
     },
     contacto: (req, res) => {
-        const contactName = req.body.contactName;
-        const contactEmail = req.body.contactEmail;
-        const contactMessage = req.body.contactMessage;
+        const contactName = req.body.dataName;
+        const contactEmail = req.body.dataEmail;
+        const contactMessage = req.body.dataMessage;
 
         const mongoDB = "Finanzas";
         const colection = "Contacto";
