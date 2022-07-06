@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Nav from "./Nav";
+import { Fragment } from "react";
 
 const Contact = () => {
 
@@ -23,17 +25,21 @@ const Contact = () => {
     };
 
     return (
-        <div class='container'>
-            <div class='card'>
-                <div class='data'>
-                    <input type='text' placeholder='nombre' onChange={(e) => setName(e.target.value)} />
-                    <input type='email' placeholder='email' onChange={(e) => setEmail(e.target.value)} />
-                    <label>Mensaje</label>
-                    <textarea onChange={(e) => setMessage(e.target.value)}></textarea>
-                    <button class='btn' onClick={() => sendContactData()}>Enviar</button>
+        <Fragment>
+            <Nav />
+            <div class='container'>
+
+                <div class='card'>
+                    <div class='data'>
+                        <input type='text' placeholder='nombre' onChange={(e) => setName(e.target.value)} />
+                        <input type='email' placeholder='email' onChange={(e) => setEmail(e.target.value)} />
+                        <label>Mensaje</label>
+                        <textarea onChange={(e) => setMessage(e.target.value)}></textarea>
+                        <button class='btn' onClick={() => sendContactData()}>Enviar</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </Fragment>
     );
 }
 

@@ -1,16 +1,10 @@
+import React, { Component } from "react";
+import Nav from "./Nav";
+
 const Finance = () => {
     return (
         <div>
-            <header>
-                <h1>Fine&Go</h1>
-            </header>
-
-            <nav>
-                <a href>Sobre la aplicación</a>
-                <a href>Mis finanzas</a>
-                <a href>Contacto</a>
-            </nav>
-
+            <Nav/>
             <main>
                 <div class='finance'>
                     <div>
@@ -37,17 +31,31 @@ const Finance = () => {
                     </div>
                 </div>
 
-                <div class='data'>
+                <div class='dataMonth'>
                     <h4>Ingresos:<span></span></h4>
                     <h4>Ahorro esperado:<span></span></h4>
                     <h4>Gasto total:<span></span></h4>
                 </div>
 
                 <div class='spendingData'>
-                    <input class='day' placeholder='día'></input>
-                    <input class='description' placeholder='descripción'></input>
-                    <input class='amount' placeholder='precio'></input>
+                    <select>
+                        <option>Hogar</option>
+                        <option>Supermercados</option>
+                        <option>Restaurantes</option>
+                        <option>Ocio</option>
+                    </select>
+                    <input class='day' placeholder='día' type='number'></input>
+                    <input class='description' placeholder='descripción' type='text'></input>
+                    <input class='amount' placeholder='precio' type='number'></input>
+                </div>
 
+                <div class='addSpending'>
+                    <button class='btn'>Añadir gasto</button>
+                </div>
+
+                <div class='container-spendings'>
+                    <div class='dataSpendings'>
+                    </div>
                 </div>
 
             </main>

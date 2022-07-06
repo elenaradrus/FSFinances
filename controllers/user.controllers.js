@@ -23,10 +23,10 @@ const user = {
         ) {
             console.log("campos incorrectos"); //renderizar una pagina de campos incorrectos
         } else {
-            const getUsers = `SELECT email FROM Usuarios WHERE email = '${email}'`;
+            const getUsers = `SELECT * FROM Usuarios WHERE email = '${email}'`;
             connection.query(getUsers, (err, result) => {
                 if (result.length > 0) {
-                    res.send("Usuario ya registrado")
+                    res.json({ message: "Usuario ya registrado", status: false })
                 } else {
                     bcrypt.hash(contrasena, 10, (err, palabraSecretaEncriptada) => {
                         if (err) {
@@ -53,7 +53,7 @@ const user = {
                                 console.log(data);
                             });
 
-                            res.send("Registro completado correctamente");
+                            res.json({ message: "Registro completado correctamente", status: true })
                         }
                     });
                 }
@@ -65,17 +65,21 @@ const user = {
         loginEmail = req.body.loginEmail;
         passLog = req.body.passLog;
 
-        let nameCorrect = `SELECT email,contrasena FROM Usuarios where email = '${loginEmail}'`;
+        let nameCorrect = `SELECT * FROM Usuarios where email = '${loginEmail}'`;
 
         connection.query(nameCorrect, (err, rows) => {
-            if (err) throw err;
-            bcrypt.compare(passLog, rows[0].contrasena).then(function (result) {
-                if (result && rows[0].email == loginEmail) {
-                    res.send("Usuario Correcto");
-                } else {
-                    res.send("Usuario incorrecto");
-                }
-            });
+            if (rows.length > 0) {
+                bcrypt.compare(passLog, rows[0].contrasena).then(function (result) {
+                    //console.log(result);
+                    if (result) {
+                        res.json({ message: "Usuario Correcto", status: true });
+                    } else {
+                        res.json({ message: "Usuario o contraseña incorrecta", status: false });
+                    }
+                });
+            } else {
+                res.json({ message: "Usuario o contraseña incorrecta", status: false });
+            }
         });
     },
     contacto: (req, res) => {
