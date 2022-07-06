@@ -104,9 +104,9 @@ const user = {
                 });
             });
 
-            res.send("Mensaje enviado");
+            res.json({ message: "Mensaje enviado", state: true });
         } else {
-            res.send("Algún campo está vacío");
+            res.json({ message: "Todos los campos son obligatorios", state: false });
         }
     },
     ingresos: (req, res) => {

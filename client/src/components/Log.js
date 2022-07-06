@@ -29,7 +29,7 @@ const Log = () => {
             fetch("login", requestOptions)
                 .then((response) => response.json())
                 .then((res) => {
-                    console.log(res.message);
+                    //console.log(res.message);
                     if (res.status) {
                         setMessage({ error: res.message });
                     } else {

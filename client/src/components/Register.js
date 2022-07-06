@@ -21,7 +21,7 @@ const Register = () => {
         if (!name || !email || !password) {
             setMessage({ error: 'No pueden haber campos vacíos' });
         } else if (!nameRegex.test(name)) {
-            setMessage({ error: 'El nombre no puede contener números' })
+            setMessage({ error: 'El nombre no puede contener números o símbolos' })
         } else if (!passwordRegex.test(password)) {
             setMessage({ error: 'La contraseña no es válida' });
         } else if (!emailRegex.test(email)) {
