@@ -113,37 +113,25 @@ const user = {
         const income = req.body.income;
         const expectedSavings = req.body.expectedSavings;
         const loggedUser = req.body.loggedUser;
-        const idLoggedUser = req.body.idLoggedUser;
-        console.log(req.body.loggedUser);
+        const idLoggedUser = req.body.getId;
+        //console.log(req.body.getId);
 
         // if (typeof income == 'number' && typeof expectedSavings == 'number') {
         //     res.send("correcto")
         // } else {
         //     res.send("No es un número")
         // }
-        try {
-            const getUser = `SELECT id FROM Usuarios where email = '${loggedUser}'`;
-            connection.query(getUser, (err, data) => {
-                if (err) throw err;
-                console.log(data[0].id);
-            });
-
-        } catch (error) {
-            console.log("Error")
-
-        }
-
 
         // const insertFinanzas = `INSERT INTO Finanzas
         //             (
-        //             ingreso, ahorroEsperado
+        //             fk_id_usuario, ingreso, ahorroEsperado
         //             )
         //             VALUES
         //             (
-        //             ?, ?
+        //             ?, ?, ?
         //             )`;
 
-        // let dataFinanzas = mysql.format(insertFinanzas, [income, expectedSavings]);
+        // let dataFinanzas = mysql.format(insertFinanzas, [idLoggedUser, income, expectedSavings]);
 
         // connection.query(dataFinanzas, (err, data) => {
         //     if (err) throw err;
@@ -151,7 +139,17 @@ const user = {
         //     console.log('Finanzas insertadas en DB');
         // });
 
+        const getUser = `SELECT * FROM Finanzas where fk_id_usuario = '${idLoggedUser}'`;
+        connection.query(getUser, (err, data) => {
+            if (err) throw err;
+            console.log("data:" + data[0].id)
+            console.log("data:" + data[0].ingreso)
+            console.log("data:" + data[0].ahorroEsperado)
+            // console.log("data:" + data)
+            res.json({ ingreso: data[0].ingreso, ahorroEsperado: data[0].ahorroEsperado })
 
+            // console.log("ingreso:" + data[0].ingreso);
+        });
 
 
 

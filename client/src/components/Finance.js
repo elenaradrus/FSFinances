@@ -7,6 +7,39 @@ const Finance = () => {
     const [income, setIncome] = useState("");
     const [savings, setSavings] = useState("");
 
+    const [savedincome, setSavedincome] = useState("");
+    const [savedspendings, setSavedspandings] = useState("");
+
+    useEffect(() => {
+        const getId = localStorage.getItem('idLoggedUser');
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ getId }),
+          };
+
+        fetch("ingresos", requestOptions)
+            .then((res) => res.json())
+            .then((res) => {
+                //console.log(res);
+                setSavedincome(res.ingreso);
+                setSavedspandings(res.ahorroEsperado);
+                // console.log(res.ingreso)
+                // console.log(res.ahorroEsperado)
+                //setIncome(res);
+                //setSavings(res.ahorroEsperado);
+                //console.log(res)
+                //console.log(savedSpendings)
+            });
+        
+            // console.log(res.json)
+            console.log(savedincome);
+            console.log(savedspendings);
+    }, []);
+
+
+
     const sendIncome = () => {
 
         const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
@@ -67,8 +100,8 @@ const Finance = () => {
                 </div>
 
                 <div class='dataMonth'>
-                    <h4>Ingresos:<span></span></h4>
-                    <h4>Ahorro esperado:<span></span></h4>
+                    <h4>Ingresos:<span>{savedincome}</span></h4>
+                    <h4>Ahorro esperado:<span>{savedspendings}</span></h4>
                     <h4>Gasto total:<span></span></h4>
                 </div>
 
