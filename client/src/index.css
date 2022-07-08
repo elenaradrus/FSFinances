@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hi+Melody&family=Shadows+Into+Light&family=Source+Sans+Pro:wght@400;700&display=swap');
 
 body {
   margin: 0;
@@ -11,17 +12,52 @@ code {
 
 .container {
   height: 100vh;
-  background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
+  background-color: #fafafa;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .card {
-  background-color: hotpink;
+  background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
   padding: 2rem;
   border-style: none;
   border-radius: 1rem;
+}
+
+.cardRegister, .cardLog {
+  background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
+  padding: 2rem;
+  border-style: none;
+  border-radius: 1rem;
+  width: 20rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.cardContact {
+  background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  padding: 2rem;
+  border-style: none;
+  border-radius: 1rem;
+}
+
+.dataRegister {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.infoRegistro, .infoLog {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: 2rem;
 }
 
 .logIn {
@@ -49,6 +85,7 @@ input {
   border-radius: .5rem;
   border-style: none;
   font-size: 1.5rem;
+  margin-bottom: .5rem;
 }
 
 .btn {
@@ -60,8 +97,16 @@ input {
   padding: .5rem;
   background-color: white;
 }
-
+/* 
 .linkLog {
+  margin: 0 auto;
+  cursor: pointer;
+} */
+
+.linkLog, .linkNav {
+  text-decoration: none;
+  color: white;
+  letter-spacing: 2px;
   margin: 0 auto;
   cursor: pointer;
 }
@@ -74,17 +119,20 @@ textarea {
   height: 15rem;
   border-radius: .5rem;
   border-style: none;
+  width: 15rem;
 }
 
 header {
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
 }
 
-h1 {
-  margin-top: 3rem;
+h2 {
+  font-family: 'Hi Melody', cursive;
+  font-size: 3.5rem;
+  font-weight: 100;
 }
 
 nav {
@@ -95,11 +143,12 @@ nav {
   gap: 1.5rem;
   color: white;
   height: 10rem;
+  margin-top: -3rem;
 }
 
 main {
   height: 200vh;
-  background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
+  background-color: #fafafa;
   padding: 3rem 3rem 0rem 3rem;
 }
 
@@ -162,10 +211,6 @@ select {
   border: 2px solid black;
 }
 
-h4 {
-  color: white;
-}
-
 .addSpending {
   display: flex;
   justify-content: center;
@@ -173,17 +218,60 @@ h4 {
 }
 
 .container-spendings {
-  height: 35rem;
+  height: 50rem;
   display: flex;
   justify-content: center;
   margin-top: 3rem;
 }
 
 .dataSpendings {
-  background: rgba(225, 225, 225, 0.5);
+  background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
   width: 40rem;
+  height: 45rem;
   border-radius: 2rem;
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.container-btnSpendings {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.btnSpendings {
+  border-radius: 1rem;
+  border-style: none;
+  width: 7rem;
+  cursor: pointer;
+  margin: 0 auto;
+  padding: .5rem;
+  color: white;
+  background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+label {
+  color: white;
+}
+
+.month {
+  color: black;
+}
+
+.about {
+  height: 100vh;
+}
+
+.footer {
+  background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+}
+
+.navBar {
+  background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
 }
 
 
@@ -199,14 +287,7 @@ h4 {
   .navBar {
     display: flex;
     justify-content: space-between;
-    background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
     height: 5rem;
-  }
-
-  .linkNav {
-    text-decoration: none;
-    color: white;
-    letter-spacing: 2px;
   }
 
   header {
@@ -215,18 +296,19 @@ h4 {
     align-items: center;
     padding-left: 3rem;
   }
-   nav {
+
+  nav {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
     height: 5rem;
     padding-right: 3rem;
-  } 
+    margin-top: 0rem;
+  }
 
   main {
     height: 150vh;
-    background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
     padding: 3rem 3rem 0rem 3rem;
   }
 
@@ -255,7 +337,8 @@ h4 {
     margin-top: 2rem;
   }
 
-  textarea, .data {
+  textarea,
+  .data {
     width: 30rem;
   }
 

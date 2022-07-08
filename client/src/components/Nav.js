@@ -11,8 +11,10 @@ class Nav extends Component {
             </header>
             <nav>
                 {/* <Link to={"/informacion"}>Sobre la aplicación</Link> */}
+                <Link className="linkNav" to={"/informacion"}>Sobre la app</Link>
                 <Link className="linkNav" to={"/finanzas"}>Mis finanzas</Link>
                 <Link className="linkNav" to={"/contacto"}>Contacto</Link>
+                <Link className="linkNav" to={"/"}>Salir</Link>
             </nav>
         </div>
         );

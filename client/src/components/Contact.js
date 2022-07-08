@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
+import Footer from "./Footer";
 import { Fragment } from "react";
 import { nameRegex, emailRegex } from "./Register";
 import Message from "./Message";
@@ -43,7 +44,7 @@ const Contact = () => {
             <Nav />
             <div class='container'>
 
-                <div class='card'>
+                <div class='cardContact'>
                     <Message
                         message={message}
                     />
@@ -56,6 +57,7 @@ const Contact = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </Fragment>
     );
 }

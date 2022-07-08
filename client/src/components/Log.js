@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Message from "./Message";
 import { Link } from "react-router-dom";
 import { emailRegex, passwordRegex } from "./Register";
+import { EUCJPMS_JAPANESE_CI } from "mysql/lib/protocol/constants/charsets";
 
 const Log = () => {
     const navigate = useNavigate();
@@ -11,6 +12,8 @@ const Log = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
+
+    localStorage.setItem("loggedUser",JSON.stringify(email));
 
     const logUser = () => {
         if (!email || !password) {
@@ -32,24 +35,27 @@ const Log = () => {
                     //console.log(res.message);
                     if (res.status) {
                         setMessage({ error: res.message });
+                        localStorage.setItem("idLoggedUser", JSON.stringify(res.id))
+                        navigate("/finanzas");
+                        
                     } else {
                         setMessage({ error: res.message });
                     }
                 })
-
-            navigate("/finanzas");
         }
     };
 
     return (
         <div class='container'>
-            <div class='card'>
+            <div class='cardLog'>
+            {/* <h2 className="titleLog">Fine&Go</h2> */}
                 <Message
                     message={message}
                 />
+                <p className="infoLog">Inicia sesión si ya tienes cuenta en Fine&Go</p>
                 <div class='logIn'>
-                    <input type='email' placeholder='email' onChange={(e) => setEmail(e.target.value)}/>
-                    <input type='password' placeholder='contraseña' onChange={(e) => setPassword(e.target.value)}/>
+                    <input type='email' placeholder='email' onChange={(e) => setEmail(e.target.value)} />
+                    <input type='password' placeholder='contraseña' onChange={(e) => setPassword(e.target.value)} />
                     <button class='btn' onClick={() => logUser()}>Iniciar sesión</button>
                     <Link className="linkNav linkLog" to={"/registro"}>Registrarse</Link>
                     <Link className="linkNav linkLog" to={"/registro"}>Olvidé Contraseña</Link>

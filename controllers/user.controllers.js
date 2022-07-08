@@ -70,9 +70,9 @@ const user = {
         connection.query(nameCorrect, (err, rows) => {
             if (rows.length > 0) {
                 bcrypt.compare(passLog, rows[0].contrasena).then(function (result) {
-                    //console.log(result);
+                    console.log(rows[0]);
                     if (result) {
-                        res.json({ message: "Usuario Correcto", status: true });
+                        res.json({ message: "Usuario Correcto", status: true, id: rows[0].id });
                     } else {
                         res.json({ message: "Usuario o contraseña incorrecta", status: false });
                     }
@@ -112,12 +112,49 @@ const user = {
     ingresos: (req, res) => {
         const income = req.body.income;
         const expectedSavings = req.body.expectedSavings;
+        const loggedUser = req.body.loggedUser;
+        const idLoggedUser = req.body.idLoggedUser;
+        console.log(req.body.loggedUser);
 
-        if (typeof income == 'number' && typeof expectedSavings == 'number') {
-            res.send("correcto")
-        } else {
-            res.send("No es un número")
+        // if (typeof income == 'number' && typeof expectedSavings == 'number') {
+        //     res.send("correcto")
+        // } else {
+        //     res.send("No es un número")
+        // }
+        try {
+            const getUser = `SELECT id FROM Usuarios where email = '${loggedUser}'`;
+            connection.query(getUser, (err, data) => {
+                if (err) throw err;
+                console.log(data[0].id);
+            });
+
+        } catch (error) {
+            console.log("Error")
+
         }
+
+
+        // const insertFinanzas = `INSERT INTO Finanzas
+        //             (
+        //             ingreso, ahorroEsperado
+        //             )
+        //             VALUES
+        //             (
+        //             ?, ?
+        //             )`;
+
+        // let dataFinanzas = mysql.format(insertFinanzas, [income, expectedSavings]);
+
+        // connection.query(dataFinanzas, (err, data) => {
+        //     if (err) throw err;
+        //     console.log(data);
+        //     console.log('Finanzas insertadas en DB');
+        // });
+
+
+
+
+
     },
     finanzas: (req, res) => {
         const title = req.body.title;

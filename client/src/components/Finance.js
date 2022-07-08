@@ -1,14 +1,45 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import Nav from "./Nav";
+import Footer from "./Footer";
 
 const Finance = () => {
+
+    const [income, setIncome] = useState("");
+    const [savings, setSavings] = useState("");
+
+    const sendIncome = () => {
+
+        const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+        const idLoggedUser = JSON.parse(localStorage.getItem("idLoggedUser"));
+        console.log(loggedUser);
+        console.log(idLoggedUser);
+
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ income: income, expectedSavings: savings, loggedUser, idLoggedUser }),
+        };
+
+        fetch("ingresos", requestOptions)
+            .then((response) => response.json())
+            .then((res) => {
+                // if (res.status) {
+                //     setMessage({ error: res.message });
+                // } else {
+                //     setMessage({ error: res.message });
+                // }
+            })
+
+    }
+
+
     return (
         <div>
-            <Nav/>
+            <Nav />
             <main>
                 <div class='finance'>
                     <div>
-                        <label>Mes</label>
+                        <label className="month">Mes</label>
                         <select>
                             <option>Enero</option>
                             <option>Febrero</option>
@@ -26,9 +57,13 @@ const Finance = () => {
                     </div>
 
                     <div>
-                        <input class='income' placeholder='ingresos este mes'></input>
-                        <input class='expectedSaving' placeholder='ahorro esperado'></input>
+                        <input class='income' placeholder='ingresos este mes' onChange={(e) => setIncome(e.target.value)}></input>
+                        <input class='expectedSaving' placeholder='ahorro esperado' onChange={(e) => setSavings(e.target.value)}></input>
                     </div>
+                </div>
+
+                <div className="container-btnSpendings">
+                    <button class='btnSpendings' onClick={() => sendIncome()}>Empezar</button>
                 </div>
 
                 <div class='dataMonth'>
@@ -50,7 +85,7 @@ const Finance = () => {
                 </div>
 
                 <div class='addSpending'>
-                    <button class='btn'>Añadir gasto</button>
+                    <button class='btnSpendings'>Añadir gasto</button>
                 </div>
 
                 <div class='container-spendings'>
@@ -59,6 +94,8 @@ const Finance = () => {
                 </div>
 
             </main>
+
+            <Footer />
 
         </div>
     );

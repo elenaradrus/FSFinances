@@ -16,13 +16,20 @@ SELECT * FROM Usuarios;
 
 CREATE TABLE Finanzas(
     id INT AUTO_INCREMENT,
-    mes VARCHAR(100) NOT NULL,
-    ano VARCHAR(100) NOT NULL,
     ingreso VARCHAR(100) NOT NULL,
     ahorroEsperado VARCHAR(100) NOT NULL,
     gastoTotal VARCHAR(100),
     ahorroReal VARCHAR(100),
     PRIMARY KEY (id)
+);
+
+CREATE TABLE Usuarios_Finanzas(
+	id INT AUTO_INCREMENT,
+	fk_id_usuario INT NOT NULL,
+	fk_id_finanzas INT NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY(fk_id_usuario) REFERENCES Usuarios(id) ON UPDATE CASCADE ON DELETE CASCADE, 
+	FOREIGN KEY(fk_id_finanzas) REFERENCES Finanzas(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 

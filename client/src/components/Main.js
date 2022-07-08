@@ -5,6 +5,7 @@ import Contact from "./Contact";
 import Register from "./Register";
 import Log from "./Log";
 import Nav from "./Nav";
+import About from "./About";
 
 class Main extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class Main extends Component {
                     <Route path="/" element={<Log />} />
                     <Route path="/finanzas" element={<Finance />}/>
                     <Route path="/registro" element={<Register />} />
-                    {/* <Route path="/informacion" element={<About />} /> */}
+                    <Route path="/informacion" element={<About />} />
                     <Route path="/contacto" element={<Contact />} />
                 </Routes>
             </div>

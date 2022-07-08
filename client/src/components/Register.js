@@ -43,22 +43,22 @@ const Register = () => {
                     console.log(res.message);
                     if (res.status) {
                         setMessage({ error: res.message });
+                        navigate("/");
                     } else {
                         setMessage({ error: res.message });
                     }
                 })
-
-            navigate("/");
         }
     };
 
     return (
         <div class='container'>
-            <div class='card'>
+            <div class='cardRegister'>
                 <Message
                     message={message}
                 />
-                <div class='data'>
+                <p className="infoRegistro">Crea tu cuenta en Fine&Go <br></br>y empieza a ahorrar</p>
+                <div class='dataRegister'>
                     <input type='text' placeholder='nombre' onChange={(e) => setName(e.target.value)} />
                     <input type='email' placeholder='email' onChange={(e) => setEmail(e.target.value)} />
                     <input type='password' placeholder='contraseña' onChange={(e) => setPassword(e.target.value)} />
