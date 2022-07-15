@@ -4,7 +4,6 @@ import Finance from "./Finance";
 import Contact from "./Contact";
 import Register from "./Register";
 import Log from "./Log";
-import Nav from "./Nav";
 import About from "./About";
 
 class Main extends Component {

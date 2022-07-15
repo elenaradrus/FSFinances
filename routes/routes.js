@@ -10,7 +10,7 @@ router.post("/registro",user.saveDataForm);
 router.post("/login",user.login);
 router.post("/contacto",user.contacto);
 router.post("/ingresos",user.ingresos);
-//router.post("/traerinformacion",user.traerInformacion);
+router.post("/traerinformacion",user.traerInformacion);
 router.post("/finanzas",user.finanzas);
 
 

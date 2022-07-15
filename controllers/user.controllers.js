@@ -104,163 +104,139 @@ const user = {
                 });
             });
 
-            res.json({ message: "Mensaje enviado", state: true });
+            res.status(200).json({ message: "Mensaje enviado", state: true });
         } else {
-            res.json({ message: "Todos los campos son obligatorios", state: false });
+            res.status(400).json({ message: "Todos los campos son obligatorios", state: false });
         }
     },
     ingresos: (req, res) => {
+        const month = req.body.month;
         const income = req.body.income;
         const expectedSavings = req.body.expectedSavings;
         const loggedUser = req.body.loggedUser;
-        const idLoggedUser = req.body.getId;
+        const idLoggedUser = req.body.idLoggedUser;
         //console.log(req.body.getId);
 
-        // if (typeof income == 'number' && typeof expectedSavings == 'number') {
-        //     res.send("correcto")
-        // } else {
-        //     res.send("No es un número")
-        // }
+        if (month && income && expectedSavings) {
+            const insertFinanzas = `INSERT INTO Finanzas
+                    (
+                    mes, fk_id_usuario, ingreso, ahorroEsperado
+                    )
+                    VALUES
+                    (
+                    ?, ?, ?, ?
+                    )`;
 
-        // const insertFinanzas = `INSERT INTO Finanzas
-        //             (
-        //             fk_id_usuario, ingreso, ahorroEsperado
-        //             )
-        //             VALUES
-        //             (
-        //             ?, ?, ?
-        //             )`;
+            let dataFinanzas = mysql.format(insertFinanzas, [month, idLoggedUser, income, expectedSavings]);
 
-        // let dataFinanzas = mysql.format(insertFinanzas, [idLoggedUser, income, expectedSavings]);
+            connection.query(dataFinanzas, (err, data) => {
+                if (err) throw err;
+                res.status(201);
+                console.log(data);
+                console.log('Finanzas insertadas en DB');
+            });
+            res.status(200).json({
+                code: 200,
+                message: "Los datos se han agreado con éxito",
+                data: {
+                    month,
+                    income,
+                    expectedSavings,
+                }
+            })
+        } else {
+            res.status(400).json({ code: 400, message: "Los datos no pueden estar vacios" })
+        }
 
-        // connection.query(dataFinanzas, (err, data) => {
-        //     if (err) throw err;
-        //     console.log(data);
-        //     console.log('Finanzas insertadas en DB');
-        // });
+
+    },
+    traerInformacion: (req, res) => {
+
+        const idLoggedUser = req.body.getId;
 
         const getUser = `SELECT * FROM Finanzas where fk_id_usuario = '${idLoggedUser}'`;
         connection.query(getUser, (err, data) => {
             if (err) throw err;
-            console.log("data:" + data[0].id)
-            console.log("data:" + data[0].ingreso)
-            console.log("data:" + data[0].ahorroEsperado)
+            if (data.length) {
+                res.json({ month: data[0].mes, income: data[0].ingreso, expectedSavings: data[0].ahorroEsperado })
+            } else {
+                res.json({ month: "", income: 0, expectedSavings: 0 })
+            }
+            // console.log("data:" + data[0].ingreso)
+            // console.log("data:" + data[0].ahorroEsperado)
             // console.log("data:" + data)
-            res.json({ ingreso: data[0].ingreso, ahorroEsperado: data[0].ahorroEsperado })
+            //res.json({ ingreso: data[0].ingreso, ahorroEsperado: data[0].ahorroEsperado })
 
             // console.log("ingreso:" + data[0].ingreso);
         });
-
-
-
     },
     finanzas: (req, res) => {
         const title = req.body.title;
+        const month = req.body.month;
         const day = req.body.day;
         const description = req.body.description;
         const amount = req.body.amount;
+        const idLoggedUser = req.body.getId;
 
-        if (
-            title == 'Hogar' &&
-            typeof day == 'number' &&
-            typeof description == 'string' &&
-            typeof amount == 'number'
-        ) {
-            const insertHogar = `INSERT INTO GastosHogar
+        if (title && month && day && description && amount) {
+            const insertGastos = `INSERT INTO Gastos
                     (
-                    dia, descripcion, precio
+                    tipo, mes, dia, descripcion, precio
                     )
                     VALUES
                     (
-                    ?, ?, ?
+                    ?, ?, ?, ?, ?
                     )`;
 
-            let dataHogar = mysql.format(insertHogar, [day, description, amount]);
+            let dataGastos = mysql.format(insertGastos, [title, month, day, description, amount]);
 
-            connection.query(dataHogar, (err, data) => {
+            connection.query(dataGastos, (err, data) => {
                 if (err) throw err;
+                //res.status(201);
                 console.log(data);
-                console.log('Datos Hogar insertados en DB');
+                console.log('Gastos insertados en DB');
             });
-
-
-            res.send('Todo correcto');
-
-        } else if (
-            title == 'Supermercados' &&
-            typeof day == 'number' &&
-            typeof description == 'string' &&
-            typeof amount == 'number'
-        ) {
-            const insertSupermercados = `INSERT INTO GastosSupermercados
-                    (
-                    dia, descripcion, precio
-                    )
-                    VALUES
-                    (
-                    ?, ?, ?
-                    )`;
-
-            let dataSupermercados = mysql.format(insertSupermercados, [day, description, amount]);
-
-            connection.query(dataSupermercados, (err, data) => {
-                if (err) throw err;
-                console.log(data);
-                console.log('Datos Supermercados insertados en DB');
+            res.status(200).json({
+                code: 200,
+                status: true,
+                message: "Los datos se han agreado con éxito",
+                data: {
+                    title,
+                    day,
+                    description,
+                    amount
+                }
             });
-            res.send('Todo correcto');
-        } else if (
-            title == 'Restaurantes' &&
-            typeof day == 'number' &&
-            typeof description == 'string' &&
-            typeof amount == 'number'
-        ) {
-            const insertRestaurantes = `INSERT INTO GastosRestaurantes
-                    (
-                    dia, descripcion, precio
-                    )
-                    VALUES
-                    (
-                    ?, ?, ?
-                    )`;
+            //otro endpoint
+            // const insertGastosUsuarios = `INSERT INTO Gastos_Usuarios
+            //     (
+            //     fk_id_usuario, fk_id_gastos 
+            //     )
+            //     VALUES
+            //     (
+            //     ?, ?
+            //     )`;
 
-            let dataRestaurantes = mysql.format(insertRestaurantes, [day, description, amount]);
+            // let dataGastosUsuarios = mysql.format(insertGastosUsuarios, [idLoggedUser, month, day, description, amount]);
 
-            connection.query(dataRestaurantes, (err, data) => {
-                if (err) throw err;
-                console.log(data);
-                console.log('Datos Restaurantes insertados en DB');
-            });
-            res.send('Todo correcto');
+            // connection.query(dataGastosUsuarios, (err, data) => {
+            //     if (err) throw err;
+            //     //res.status(201);
+            //     console.log(data);
+            //     console.log('Gastos insertados en tabla relacional');
+            // });
 
-        } else if (
-            title == 'Ocio' &&
-            typeof day == 'number' &&
-            typeof description == 'string' &&
-            typeof amount == 'number'
-        ) {
-            const insertOcio = `INSERT INTO GastosOcio
-                    (
-                    dia, descripcion, precio
-                    )
-                    VALUES
-                    (
-                    ?, ?, ?
-                    )`;
-
-            let dataOcio = mysql.format(insertOcio, [day, description, amount]);
-
-            connection.query(dataOcio, (err, data) => {
-                if (err) throw err;
-                console.log(data);
-                console.log('Datos Ocio insertados en DB');
-            });
-            res.send('Todo correcto');
         } else {
-            res.send('Campos incorrectos');
-        }
+            res.status(400).json({ code: 400, status: false, message: "Los datos no pueden estar vacios" })
+        };
+
+
+
+
+
+
     }
-}
+};
 
 
 module.exports = user;
