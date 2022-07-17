@@ -6,12 +6,16 @@ const pages = require("../controllers/pages.controllers");
  
 //Rutas de inicio
 router.get("/",pages.home);
-router.post("/registro",user.saveDataForm);
+router.post("/sign-up",user.saveDataForm);
 router.post("/login",user.login);
-router.post("/contacto",user.contacto);
-router.post("/ingresos",user.ingresos);
-router.post("/traerinformacion",user.traerInformacion);
-router.post("/finanzas",user.finanzas);
+router.post("/contact",user.contact);
+
+
+router.post("/add-income",user.userIncome);
+router.post("/incomes",user.monthSummary);
+router.post("/add-spending",user.insertSpendings);
+router.post("/spendings",user.userSpendings);
+router.post("/month-end",user.totalSpendings);
 
 
 module.exports = router;

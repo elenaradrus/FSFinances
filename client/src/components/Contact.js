@@ -27,7 +27,7 @@ const Contact = () => {
                 body: JSON.stringify({ dataName: name, dataEmail: email, dataMessage: content }),
             };
 
-            fetch("contacto", requestOptions)
+            fetch("contact", requestOptions)
                 .then((response) => response.json())
                 .then((res) => {
                     if (res.status) {

@@ -12,9 +12,10 @@ class Nav extends Component {
             <nav>
                 {/* <Link to={"/informacion"}>Sobre la aplicación</Link> */}
                 <Link className="linkNav" to={"/informacion"}>Sobre la app</Link>
+                {/* <Link className="linkNav" to={"/home"}>Home</Link> */}
                 <Link className="linkNav" to={"/finanzas"}>Mis finanzas</Link>
                 <Link className="linkNav" to={"/contacto"}>Contacto</Link>
-                <Link className="linkNav" to={"/"}>Salir</Link>
+                <Link className="linkNav" to={"/"} onClick={() => localStorage.clear()}>Salir</Link>
             </nav>
         </div>
         );

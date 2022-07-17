@@ -33,7 +33,7 @@ const Register = () => {
                 body: JSON.stringify({ accountName: name, accountEmail: email, accountPassword: password }),
             };
 
-            fetch("registro", requestOptions)
+            fetch("sign-up", requestOptions)
                 .then((response) => response.json())
                 .then((res) => {
                     // setName(res.name)

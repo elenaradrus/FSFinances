@@ -16,6 +16,7 @@ const Log = () => {
     localStorage.setItem("loggedUser",JSON.stringify(email));
 
     const logUser = () => {
+        console.log('click')
         if (!email || !password) {
             setMessage({ error: 'No pueden haber campos vacíos' });
         } else if (!passwordRegex.test(password)) {

@@ -7,9 +7,9 @@ const MongoClient = mongo.MongoClient;
 
 const user = {
     saveDataForm: (req, res) => {
-        const nombre = req.body.accountName;
+        const name = req.body.accountName;
         const email = req.body.accountEmail;
-        const contrasena = req.body.accountPassword;
+        const password = req.body.accountPassword;
         const emailExp = new RegExp(/^([\d\w_\.-]+)@([\d\w\.-]+)\.([\w\.]{3})$/);
         const nameExp = new RegExp(/^([A-Za-z]{1,15})$/);
         const passExp = new RegExp(
@@ -17,9 +17,9 @@ const user = {
         );
 
         if (
-            !nameExp.test(nombre) ||
+            !nameExp.test(name) ||
             !emailExp.test(email) ||
-            !passExp.test(contrasena)
+            !passExp.test(password)
         ) {
             console.log("campos incorrectos"); //renderizar una pagina de campos incorrectos
         } else {
@@ -28,7 +28,7 @@ const user = {
                 if (result.length > 0) {
                     res.json({ message: "Usuario ya registrado", status: false })
                 } else {
-                    bcrypt.hash(contrasena, 10, (err, palabraSecretaEncriptada) => {
+                    bcrypt.hash(password, 10, (err, palabraSecretaEncriptada) => {
                         if (err) {
                             console.log("No se ha podido encriptar la contraseña ", err);
                         } else {
@@ -44,7 +44,7 @@ const user = {
                                 )`;
 
                             let query = mysql.format(insertQuery, [
-                                nombre,
+                                name,
                                 email,
                                 palabraEncriptada
                             ]);
@@ -62,8 +62,8 @@ const user = {
         }
     },
     login: (req, res) => {
-        loginEmail = req.body.loginEmail;
-        passLog = req.body.passLog;
+        const loginEmail = req.body.loginEmail;
+        const passLog = req.body.passLog;
 
         let nameCorrect = `SELECT * FROM Usuarios where email = '${loginEmail}'`;
 
@@ -82,7 +82,7 @@ const user = {
             }
         });
     },
-    contacto: (req, res) => {
+    contact: (req, res) => {
         const contactName = req.body.dataName;
         const contactEmail = req.body.dataEmail;
         const contactMessage = req.body.dataMessage;
@@ -109,7 +109,7 @@ const user = {
             res.status(400).json({ message: "Todos los campos son obligatorios", state: false });
         }
     },
-    ingresos: (req, res) => {
+    userIncome: (req, res) => {
         const month = req.body.month;
         const income = req.body.income;
         const expectedSavings = req.body.expectedSavings;
@@ -150,17 +150,22 @@ const user = {
 
 
     },
-    traerInformacion: (req, res) => {
+    monthSummary: (req, res) => {
 
         const idLoggedUser = req.body.getId;
+        const month = req.body.month;
 
-        const getUser = `SELECT * FROM Finanzas where fk_id_usuario = '${idLoggedUser}'`;
+        const getUser = `SELECT * FROM Finanzas where fk_id_usuario = '${idLoggedUser}' AND mes = '${month}'`;
         connection.query(getUser, (err, data) => {
             if (err) throw err;
             if (data.length) {
-                res.json({ month: data[0].mes, income: data[0].ingreso, expectedSavings: data[0].ahorroEsperado })
+                res.json({ status: true, month: data[0].mes, income: data[0].ingreso, expectedSavings: data[0].ahorroEsperado })
             } else {
-                res.json({ month: "", income: 0, expectedSavings: 0 })
+                res.json({ 
+                    month: "", 
+                    income: "Aún no hay datos", 
+                    expectedSavings: "Aún no hay datos" 
+                })
             }
             // console.log("data:" + data[0].ingreso)
             // console.log("data:" + data[0].ahorroEsperado)
@@ -170,7 +175,7 @@ const user = {
             // console.log("ingreso:" + data[0].ingreso);
         });
     },
-    finanzas: (req, res) => {
+    insertSpendings: (req, res) => {
         const title = req.body.title;
         const month = req.body.month;
         const day = req.body.day;
@@ -178,19 +183,22 @@ const user = {
         const amount = req.body.amount;
         const idLoggedUser = req.body.getId;
 
+
         if (title && month && day && description && amount) {
-            const insertGastos = `INSERT INTO Gastos
+            // const procedure = `CALL GastosUsuarios(?, ?, ?, ?, ?, ?)`;
+            // const dataGastos = mysql.format(procedure, [title, month, day, description, amount, idLoggedUser]);
+            const insertSpending = `INSERT INTO Gastos
                     (
-                    tipo, mes, dia, descripcion, precio
+                    fk_id_usuario, tipo, mes, dia, descripcion, precio
                     )
                     VALUES
                     (
-                    ?, ?, ?, ?, ?
+                    ?, ?, ?, ?, ?, ?
                     )`;
 
-            let dataGastos = mysql.format(insertGastos, [title, month, day, description, amount]);
+            let dataSpendings = mysql.format(insertSpending, [idLoggedUser, title, month, day, description, amount]);
 
-            connection.query(dataGastos, (err, data) => {
+            connection.query(dataSpendings, (err, data) => {
                 if (err) throw err;
                 //res.status(201);
                 console.log(data);
@@ -207,33 +215,65 @@ const user = {
                     amount
                 }
             });
-            //otro endpoint
-            // const insertGastosUsuarios = `INSERT INTO Gastos_Usuarios
-            //     (
-            //     fk_id_usuario, fk_id_gastos 
-            //     )
-            //     VALUES
-            //     (
-            //     ?, ?
-            //     )`;
-
-            // let dataGastosUsuarios = mysql.format(insertGastosUsuarios, [idLoggedUser, month, day, description, amount]);
-
-            // connection.query(dataGastosUsuarios, (err, data) => {
-            //     if (err) throw err;
-            //     //res.status(201);
-            //     console.log(data);
-            //     console.log('Gastos insertados en tabla relacional');
-            // });
-
         } else {
             res.status(400).json({ code: 400, status: false, message: "Los datos no pueden estar vacios" })
         };
+    },
+    userSpendings: (req, res) => {
+        const userId = req.body.userId;
+        const month = req.body.month;
 
+        const getSpendings = `SELECT * FROM Gastos WHERE fk_id_usuario = '${userId}' AND mes = '${month}'`;
 
+        connection.query(getSpendings, (err, result) => {
+            if (err) throw err;
+            console.log("result" + result);
+            //res.send(result)
+            res.json({ code: 200, data: result });
+        });
 
+        // const insertGastosUsuarios = `INSERT INTO Gastos_Usuarios
+        //         (
+        //         fk_id_usuario, fk_id_gastos 
+        //         )
+        //         VALUES
+        //         (
+        //         ?, ?
+        //         )`;
 
+        // let dataGastosUsuarios = mysql.format(insertGastosUsuarios, [idLoggedUser]);
 
+        // connection.query(dataGastosUsuarios, (err, data) => {
+        //     if (err) throw err;
+        //     //res.status(201);
+        //     console.log(data);
+        //     console.log('Gastos insertados en tabla relacional');
+        // });
+
+    },
+    totalSpendings: (req, res) => {
+        const userId = req.body.userId;
+        const month = req.body.month;
+        const totalSpendings = `SELECT precio FROM Gastos WHERE fk_id_usuario = '${userId}' AND mes = '${month}'`;
+
+        connection.query(totalSpendings, (err, result) => {
+            if (err) throw err;
+            const amount = result;
+            //console.log(amount)
+            const mapAmount = amount.map((e) => {
+                return e.precio;
+            })
+            console.log(mapAmount);
+
+            const sumAmount = mapAmount.reduce((accumulator, currentValue) => {
+                return accumulator + currentValue;
+            })
+            const totalAmount = sumAmount.toFixed(2);
+            console.log(totalAmount);
+            res.send({ totalAmount });
+            //console.log("result" + result);
+            //res.json({ code: 200, data: result });
+        });
 
     }
 };

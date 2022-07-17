@@ -220,6 +220,7 @@ select {
 .container-spendings {
   height: 50rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin-top: 3rem;
 }
@@ -227,9 +228,12 @@ select {
 .dataSpendings {
   background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
   width: 40rem;
-  height: 45rem;
+  height: 5rem;
   border-radius: 2rem;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .container-btnSpendings {
@@ -353,7 +357,9 @@ label {
   .container-spendings {
     height: 50rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin-top: 3rem;
   }
 }
