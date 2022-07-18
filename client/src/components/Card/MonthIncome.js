@@ -2,9 +2,9 @@ import "./MonthIncome.css"
 import React, { Component, useState, useEffect } from "react";
 import Message from "../Message";
 
-const MonthIncome = ({ month, onChangeMonth }) => {
+const MonthIncome = ({ month }) => {
 
-    const [isForm, setForm] = useState(false);
+    const [isForm, setForm] = useState(true);
 
     const [message, setMessage] = useState("");
 
@@ -90,30 +90,11 @@ const MonthIncome = ({ month, onChangeMonth }) => {
                 <button className='btnSpendingsCard' onClick={() => setForm(true)}>Volver</button>
             </div>
         )
-
-
     }
 
     const renderForm = () => {
         return (
             <div className="containerCard">
-                <div className="monthCard">
-                    <select className="selectCard" value={month} onChange={(e) => onChangeMonth(e.target.value)}>
-                        <option></option>
-                        <option>Enero</option>
-                        <option>Febrero</option>
-                        <option>Marzo</option>
-                        <option>Abril</option>
-                        <option>Mayo</option>
-                        <option>Junio</option>
-                        <option>Julio</option>
-                        <option>Agosto</option>
-                        <option>Septiembre</option>
-                        <option>Octubre</option>
-                        <option>Noviembre</option>
-                        <option>Diciembre</option>
-                    </select>
-                </div>
 
                 <div className="container-inputCard">
                     <input className='inputCard' placeholder='ingresos este mes' type='number' onChange={(e) => setIncome(e.target.value)}></input>
@@ -134,42 +115,6 @@ const MonthIncome = ({ month, onChangeMonth }) => {
     }
 
     return isForm ? renderForm() : renderData();
-
-
-    // <div className="containerCard">
-    //     <button className='edit' onClick={() => renderRed()}>Edit</button>
-    //     <div className="monthCard">
-    //         <select className="selectCard" value={month} onChange={(e) => onChangeMonth(e.target.value)}>
-    //             <option></option>
-    //             <option>Enero</option>
-    //             <option>Febrero</option>
-    //             <option>Marzo</option>
-    //             <option>Abril</option>
-    //             <option>Mayo</option>
-    //             <option>Junio</option>
-    //             <option>Julio</option>
-    //             <option>Agosto</option>
-    //             <option>Septiembre</option>
-    //             <option>Octubre</option>
-    //             <option>Noviembre</option>
-    //             <option>Diciembre</option>
-    //         </select>
-    //     </div>
-
-    //     <div className="container-inputCard">
-    //         <input className='inputCard' placeholder='ingresos este mes' type='number' onChange={(e) => setIncome(e.target.value)}></input>
-    //         <input className='inputCard' placeholder='ahorro esperado' type='number' onChange={(e) => setSavings(e.target.value)}></input>
-    //     </div>
-
-    //     <div className="container-btnSpendingsCard">
-    //         <button className='btnSpendingsCard' onClick={() => sendIncome()}>Empezar</button>
-    //     </div>
-
-    //     <Message
-    //         message={message}
-    //     />
-    // </div>
-    //);
 }
 
 export default MonthIncome;

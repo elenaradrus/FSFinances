@@ -11,16 +11,22 @@ import MonthOverview from "../../components/MonthOverview/MonthOverview";
 
 const Home = () => {
 
-    const [month, setMonth] = useState("");
+    const yearMonths = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const date = new Date();
+    const getMonth = yearMonths[date.getMonth()];
+    const [month, setMonth] = useState(getMonth);
 
-    const onChangeMonth = (month) =>{
+    //const [month, setMonth] = useState('Enero');
+
+    const onChangeMonth = (month) => {
         setMonth(month);
+        console.log("month home", month)
     }
 
     return ( 
         <div>
             <Nav />
-            <MonthOverview />
+            <MonthOverview month={month} onChangeMonth={onChangeMonth}/>
             <div className="containerHome">
                 <div className="left">
                    <MonthIncome month={month} onChangeMonth={onChangeMonth}/>

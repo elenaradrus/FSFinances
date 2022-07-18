@@ -6,13 +6,11 @@ const List = ({ month }) => {
     const [data, setData] = useState('');
     const [message, setMessage] = useState("");
 
-    console.log('list month: ', month);
-
 
     useEffect(() => {
         const userId = localStorage.getItem('idLoggedUser');
 
-        console.log('month: ', month);
+        console.log('month list: ', month);
 
         const getSpendings = {
             method: "POST",
@@ -27,7 +25,7 @@ const List = ({ month }) => {
                 setData(res.data);
                 //console.log(data);
             });
-    }, [month]);
+    }, [month, data]);
 
     const renderSpendings = () => {
         return (

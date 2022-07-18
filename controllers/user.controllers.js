@@ -254,7 +254,10 @@ const user = {
     totalSpendings: (req, res) => {
         const userId = req.body.userId;
         const month = req.body.month;
+
         const totalSpendings = `SELECT precio FROM Gastos WHERE fk_id_usuario = '${userId}' AND mes = '${month}'`;
+
+        const userMonthIncome = `SELECT ingreso FROM Finanzas WHERE fk_id_usuario = '${userId}' AND mes = '${month}'`;
 
         connection.query(totalSpendings, (err, result) => {
             if (err) throw err;
@@ -265,14 +268,27 @@ const user = {
             })
             console.log(mapAmount);
 
-            const sumAmount = mapAmount.reduce((accumulator, currentValue) => {
-                return accumulator + currentValue;
-            })
-            const totalAmount = sumAmount.toFixed(2);
-            console.log(totalAmount);
-            res.send({ totalAmount });
-            //console.log("result" + result);
-            //res.json({ code: 200, data: result });
+            const initialValue = 0;
+            const sumAmount = mapAmount.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
+
+            const totalAmount = parseFloat(sumAmount.toFixed(2));
+            console.log("gastos: ", totalAmount);
+
+            connection.query(userMonthIncome, (err, data) => {
+                if (err) throw err;
+                const income = data
+                if(totalAmount > 0) {
+                    res.send({ totalAmount, income, status: true });
+                } else {
+                    res.send({ totalAmount: "", income: "", status: false });
+                }
+                //const income = data[0].ingreso;
+                //const monthSaving = income - totalAmount;
+                console.log("ingreso mes:", income);
+                //console.log("ahorrado mes", monthSaving)
+
+                //res.send({ totalAmount, income, monthSaving });
+            });
         });
 
     }

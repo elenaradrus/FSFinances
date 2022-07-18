@@ -40,8 +40,9 @@ SELECT * FROM Finanzas;
 #	FOREIGN KEY(fk_id_finanzas) REFERENCES Finanzas(id) ON UPDATE CASCADE ON DELETE CASCADE
 #);
 
-CREATE TABLE GastosFijos (
+CREATE TABLE Gastos (
     id INT AUTO_INCREMENT,
+    fk_id_usuario INT,
     dia VARCHAR(100),
     descripcion VARCHAR(100),
     precio VARCHAR(100),
@@ -49,53 +50,8 @@ CREATE TABLE GastosFijos (
     PRIMARY KEY (id)
 );
 
-SELECT * FROM GastosFijos;
+SELECT * FROM Gastos;
 
-CREATE TABLE GastosSupermercados (
-    id INT AUTO_INCREMENT,
-    dia VARCHAR(100),
-    descripcion VARCHAR(100),
-    precio VARCHAR(100),
-    total VARCHAR(100),
-    PRIMARY KEY (id)
-);
 
-SELECT * FROM GastosSupermercados;
 
-CREATE TABLE GastosOcio (
-    id INT AUTO_INCREMENT,
-    dia VARCHAR(100),
-    descripcion VARCHAR(100),
-    precio VARCHAR(100),
-    total VARCHAR(100),
-    PRIMARY KEY (id)
-);
 
-SELECT * FROM GastosOcio;
-
-CREATE TABLE GastosFijos_Usuarios(
-id INT AUTO_INCREMENT,
-fk_id_usuario INT NOT NULL,
-fk_id_gastosFijos INT NOT NULL,
-PRIMARY KEY (id),
-FOREIGN KEY(fk_id_usuario) REFERENCES Usuarios(id) ON UPDATE CASCADE ON DELETE CASCADE, 
-FOREIGN KEY(fk_id_gastosFijos) REFERENCES GastosFijos(id) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-CREATE TABLE GastosSupermercados_Usuarios(
-id INT AUTO_INCREMENT,
-fk_id_usuario INT NOT NULL,
-fk_id_gastosSupermercados INT NOT NULL,
-PRIMARY KEY (id),
-FOREIGN KEY(fk_id_usuario) REFERENCES Usuarios(id) ON UPDATE CASCADE ON DELETE CASCADE, 
-FOREIGN KEY(fk_id_gastosSupermercados) REFERENCES GastosSupermercados(id) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-CREATE TABLE GastosOcio_Usuarios(
-id INT AUTO_INCREMENT,
-fk_id_usuario INT NOT NULL,
-fk_id_gastosOcio INT NOT NULL,
-PRIMARY KEY (id),
-FOREIGN KEY(fk_id_usuario) REFERENCES Usuarios(id) ON UPDATE CASCADE ON DELETE CASCADE, 
-FOREIGN KEY(fk_id_gastosOcio) REFERENCES GastosOcio(id) ON UPDATE CASCADE ON DELETE CASCADE
-);

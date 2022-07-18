@@ -1,0 +1,31 @@
+.container-overview {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.monthSelectOverview {
+    color: black;
+    width: 20%;
+}
+
+.monthCardOverview {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 20rem;
+    box-shadow: 7px 7px 19px -11px rgba(0,0,0,0.75);
+    border-radius: .5rem;
+}
+
+.overview {
+    box-shadow: 7px 7px 19px -11px rgba(0,0,0,0.75);
+    border-radius: .5rem;
+    width: 20rem;
+}
+
+.selectCardOverview {
+    font-size: 1.3rem;
+}
