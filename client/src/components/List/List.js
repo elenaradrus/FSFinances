@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import "./List.css"
 
-const List = ({ month }) => {
+const List = ({ month, onSpendingChange, changeList }) => {
 
     const [data, setData] = useState('');
     const [message, setMessage] = useState("");
@@ -10,7 +10,6 @@ const List = ({ month }) => {
     useEffect(() => {
         const userId = localStorage.getItem('idLoggedUser');
 
-        console.log('month list: ', month);
 
         const getSpendings = {
             method: "POST",
@@ -23,9 +22,10 @@ const List = ({ month }) => {
             .then((res) => {
                 //console.log('res: ', res.data);
                 setData(res.data);
+                onSpendingChange({});
                 //console.log(data);
             });
-    }, [month, data]);
+    }, [month, changeList]);
 
     const renderSpendings = () => {
         return (

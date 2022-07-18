@@ -276,12 +276,12 @@ const user = {
 
             connection.query(userMonthIncome, (err, data) => {
                 if (err) throw err;
-                const income = data
-                if(totalAmount > 0) {
-                    res.send({ totalAmount, income, status: true });
-                } else {
-                    res.send({ totalAmount: "", income: "", status: false });
-                }
+                const income = data; 
+                console.log("data", data)
+                //console.log('totalAmount: ', totalAmount);
+               res.send({ totalAmount, income, status: true });
+
+                
                 //const income = data[0].ingreso;
                 //const monthSaving = income - totalAmount;
                 console.log("ingreso mes:", income);

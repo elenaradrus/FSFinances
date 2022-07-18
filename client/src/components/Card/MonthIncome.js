@@ -17,16 +17,12 @@ const MonthIncome = ({ month }) => {
 
     const [isDataMonthLoading, setDataMonthLoading] = useState(true);
 
-    console.log('month income month: ', month);
-
 
     const sendIncome = () => {
         setDataMonthLoading(true);
 
         const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
         const idLoggedUser = JSON.parse(localStorage.getItem("idLoggedUser"));
-        console.log(loggedUser);
-        console.log(idLoggedUser);
 
         const requestOptions = {
             method: "POST",
@@ -37,12 +33,10 @@ const MonthIncome = ({ month }) => {
         fetch("add-income", requestOptions)
             .then((response) => response.json())
             .then((res) => {
-                console.log('res: ', res);
                 if (res.code !== 200) {
                     setMessage({ error: res.message });
                     setDataMonthLoading(false);
                 } else {
-                    console.log('res: ', res.message);
                     setSavedincome(res.data.income);
                     setSavedspendings(res.data.expectedSavings);
                     setDataMonthLoading(false);
@@ -70,15 +64,10 @@ const MonthIncome = ({ month }) => {
         fetch("incomes", requestOptions)
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
                 setSavedincome(res.income);
                 setSavedspendings(res.expectedSavings);
                 setDataMonthLoading(false);
             });
-
-        // console.log(res.json)
-        console.log(savedincome);
-        console.log(savedspendings);
     }, [month]);
 
     const renderData = () => {

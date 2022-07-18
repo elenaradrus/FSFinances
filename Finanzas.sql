@@ -17,10 +17,11 @@ SELECT * FROM Usuarios;
 CREATE TABLE Finanzas(
     id INT AUTO_INCREMENT,
     fk_id_usuario INT,
-    ingreso VARCHAR(100),
+    mes VARCHAR(100),
+    ingreso INT,
     ahorroEsperado VARCHAR(100),
-    gastoTotal VARCHAR(100),
-    ahorroReal VARCHAR(100),
+    gastoTotal INT,
+    ahorroReal INT,
     PRIMARY KEY (id),
     FOREIGN KEY(fk_id_usuario) REFERENCES Usuarios(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -40,13 +41,17 @@ SELECT * FROM Finanzas;
 #	FOREIGN KEY(fk_id_finanzas) REFERENCES Finanzas(id) ON UPDATE CASCADE ON DELETE CASCADE
 #);
 
+#DROP TABLE Gastos;
+
 CREATE TABLE Gastos (
     id INT AUTO_INCREMENT,
     fk_id_usuario INT,
-    dia VARCHAR(100),
+    mes VARCHAR(100),
+    tipo VARCHAR(100),
+    dia INT,
     descripcion VARCHAR(100),
-    precio VARCHAR(100),
-    total VARCHAR(100),
+    precio INT,
+    total INT,
     PRIMARY KEY (id)
 );
 

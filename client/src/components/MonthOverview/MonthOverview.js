@@ -1,17 +1,16 @@
 import "./MonthOverview.css"
 import React, { Component, useState, useEffect } from "react";
 
-const MonthOverview = ({ month, onChangeMonth }) => {
+const MonthOverview = ({ month, onChangeMonth, changeSpending }) => {
 
-    const [totalAmount, setTotalAmount] = useState('')
-    const [income, setIncome] = useState('')
-    const [monthSaving, setMonthSaving] = useState('')
-    console.log(onChangeMonth);
-
+    const [totalAmount, setTotalAmount] = useState(0)
+    const [income, setIncome] = useState(0)
+    const [monthSaving, setMonthSaving] = useState(0)
+    const [response, setResponse] = useState({});
 
     useEffect(() => {
         const userId = localStorage.getItem('idLoggedUser');
-        console.log("monthOverview", month)
+       
 
 
         const requestOptions = {
@@ -23,29 +22,29 @@ const MonthOverview = ({ month, onChangeMonth }) => {
         fetch("month-end", requestOptions)
             .then((res) => res.json())
             .then((res) => {
+                console.log('rtx  ha hecho la llamada');
                 if (res.status) {
-                    setTotalAmount(res.totalAmount);
-                    setIncome(res.income[0].ingreso);
-                    setMonthSaving((res.income[0].ingreso - totalAmount));
+                    console.log('rtx status: ', res);
+                    setResponse(res);
                 } else {
-                    setTotalAmount('');
-                    setIncome('');
-                    setMonthSaving('');
+                    console.log('rtx if status es false');
+                    setTotalAmount(0);
+                    setIncome(0);
+                    setMonthSaving(0);
                 }
-                console.log(res);
-                console.log(res.income[0].ingreso);
-                console.log(totalAmount);
-                console.log(res.income[0].ingreso - totalAmount)
-
             });
 
+    }, [month, changeSpending]);
 
-        console.log(totalAmount)
-        console.log(income)
-        console.log(monthSaving)
+    console.log('rtx respose render: ', response);
 
-    }, [month]);
+    const getIncome = (response) =>{
+        if(response && response.income?.length){
+            return response.income[0].ingreso;
+        }
+        return 0;
 
+    }
 
     return (
         <div className="container-overview">
@@ -67,17 +66,17 @@ const MonthOverview = ({ month, onChangeMonth }) => {
                 </select>
             </div>
 
-            {/* <div className="overview">
-                <h4>Ingresos: <span>{income}</span>€</h4>
+            <div className="overview">
+                <h4>Ingresos: <span>{getIncome(response)}</span>€</h4>
             </div>
 
             <div className="overview">
-                <h4>Gastos: <span>{totalAmount}</span>€</h4>
+                <h4>Gastos: <span>{response?.totalAmount}</span>€</h4>
             </div>
 
             <div className="overview">
-                <h4>Ahorrado: <span>{monthSaving}</span>€</h4>
-            </div> */}
+                <h4>Ahorrado: <span>{getIncome(response) - response?.totalAmount}</span>€</h4>
+            </div>
 
         </div>
     );

@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import "./Spendings.css"
 import Message from "../Message";
 
-const Spendings = ({month}) => {
+const Spendings = ({month, onDataChange}) => {
     const [message, setMessage] = useState("");
 
     const [title, setTitle] = useState("");
@@ -10,11 +10,10 @@ const Spendings = ({month}) => {
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
 
-    console.log('spendings month: ', month);
-
     const sendSpending = () => {
         const getId = localStorage.getItem('idLoggedUser');
 
+        console.log('pasando por sendSpending');
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -25,12 +24,13 @@ const Spendings = ({month}) => {
         fetch("add-spending", requestOptions)
             .then((response) => response.json())
             .then((res) => {
-                console.log('res: ', res);
+                console.log('resultado de sendSpending: ', res);
                 if (res.status) {
                     setTitle(res.data.title);
                     setDay(res.data.day);
                     setDescription(res.data.description);
                     setAmount(res.data.amount);
+                    onDataChange({});
 
                 } else {
                     setMessage({ error: res.message });
