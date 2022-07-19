@@ -20,7 +20,7 @@ const Home = () => {
 
     const [changeSpending, setChangeSpending] = useState({});
 
-
+    //cuando se actualiza la lista de gastos, lo hace también el componente de monthOverview
     const onSpendingChange = (add) => {
         setChangeSpending(add);
     }

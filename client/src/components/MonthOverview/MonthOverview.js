@@ -25,7 +25,6 @@ const MonthOverview = ({ month, onChangeMonth, changeSpending }) => {
                 if (res.status) {
                     setResponse(res);
                 } else {
-                    
                     setIncome(0);
                     setMonthSaving(0);
                 }
@@ -35,11 +34,14 @@ const MonthOverview = ({ month, onChangeMonth, changeSpending }) => {
 
 
     const getIncome = (response) =>{
-        if(response && response.income?.length){
+        if(response?.income?.length){
             return response.income[0].ingreso;
         }
         return 0;
+    };
 
+    const getSavings = (response) => {
+        return getIncome(response) - response?.totalAmount;
     }
 
     return (
@@ -71,7 +73,7 @@ const MonthOverview = ({ month, onChangeMonth, changeSpending }) => {
             </div>
 
             <div className="overview">
-                <h4>Ahorrado: <span>{getIncome(response) - response?.totalAmount}</span>€</h4>
+                <h4>Ahorrado: <span>{getSavings(response)}</span>€</h4>
             </div>
 
         </div>
