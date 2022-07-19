@@ -167,12 +167,6 @@ const user = {
                     expectedSavings: "Aún no hay datos" 
                 })
             }
-            // console.log("data:" + data[0].ingreso)
-            // console.log("data:" + data[0].ahorroEsperado)
-            // console.log("data:" + data)
-            //res.json({ ingreso: data[0].ingreso, ahorroEsperado: data[0].ahorroEsperado })
-
-            // console.log("ingreso:" + data[0].ingreso);
         });
     },
     insertSpendings: (req, res) => {
@@ -185,8 +179,7 @@ const user = {
 
 
         if (title && month && day && description && amount) {
-            // const procedure = `CALL GastosUsuarios(?, ?, ?, ?, ?, ?)`;
-            // const dataGastos = mysql.format(procedure, [title, month, day, description, amount, idLoggedUser]);
+            
             const insertSpending = `INSERT INTO Gastos
                     (
                     fk_id_usuario, tipo, mes, dia, descripcion, precio
@@ -232,24 +225,6 @@ const user = {
             res.json({ code: 200, data: result });
         });
 
-        // const insertGastosUsuarios = `INSERT INTO Gastos_Usuarios
-        //         (
-        //         fk_id_usuario, fk_id_gastos 
-        //         )
-        //         VALUES
-        //         (
-        //         ?, ?
-        //         )`;
-
-        // let dataGastosUsuarios = mysql.format(insertGastosUsuarios, [idLoggedUser]);
-
-        // connection.query(dataGastosUsuarios, (err, data) => {
-        //     if (err) throw err;
-        //     //res.status(201);
-        //     console.log(data);
-        //     console.log('Gastos insertados en tabla relacional');
-        // });
-
     },
     totalSpendings: (req, res) => {
         const userId = req.body.userId;
@@ -280,14 +255,6 @@ const user = {
                 console.log("data", data)
                 //console.log('totalAmount: ', totalAmount);
                res.send({ totalAmount, income, status: true });
-
-                
-                //const income = data[0].ingreso;
-                //const monthSaving = income - totalAmount;
-                console.log("ingreso mes:", income);
-                //console.log("ahorrado mes", monthSaving)
-
-                //res.send({ totalAmount, income, monthSaving });
             });
         });
 

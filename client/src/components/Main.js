@@ -19,7 +19,6 @@ class Main extends Component {
             <div>
                 <Routes>
                     <Route path="/" element={<Log />} />
-                    {/* <Route path="/finanzas" element={<Finance />}/> */}
                     <Route path="/registro" element={<Register />} />
                     <Route path="/informacion" element={<About />} />
                     <Route path="/contacto" element={<Contact />} />

@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import "./List.css"
 
-const List = ({ month, onSpendingChange, changeList, sendAmount }) => {
+const List = ({ month, onSpendingChange, changeList }) => {
 
     const [data, setData] = useState('');
     const [message, setMessage] = useState("");
@@ -20,10 +20,8 @@ const List = ({ month, onSpendingChange, changeList, sendAmount }) => {
         fetch("spendings", getSpendings)
             .then((res) => res.json())
             .then((res) => {
-                //console.log('res: ', res.data);
                 setData(res.data);
                 onSpendingChange({});
-                //console.log(data);
             });
     }, [month, changeList]);
 

@@ -48,7 +48,6 @@ const MonthOverview = ({ month, onChangeMonth, changeSpending }) => {
         <div className="container-overview">
             <div className="monthCardOverview">
                 <select className="selectCardOverview" value={month} onChange={(e) => onChangeMonth(e.target.value)}>
-                    {/* <option></option> */}
                     <option>Enero</option>
                     <option>Febrero</option>
                     <option>Marzo</option>

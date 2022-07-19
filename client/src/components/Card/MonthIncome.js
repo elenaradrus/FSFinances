@@ -41,19 +41,12 @@ const MonthIncome = ({ month }) => {
                     setSavedspendings(res.data.expectedSavings);
                     setDataMonthLoading(false);
                 };
-
-                // if (res.status) {
-                //     setMessage({ error: res.message });
-                // } else {
-                //     setMessage({ error: res.message });
-                // }
             });
 
     }
 
     useEffect(() => {
         const getId = localStorage.getItem('idLoggedUser');
-
 
         const requestOptions = {
             method: 'POST',
