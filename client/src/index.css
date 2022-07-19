@@ -262,9 +262,39 @@ label {
   color: black;
 }
 
-.about {
-  height: 100vh;
+.container-about {
+  background-color: aliceblue;
+  height: 105vh;
+  display: flex;
+  justify-content: center;
 }
+
+.about {
+  width: 100%;
+}
+
+.aboutTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.textAbout {
+  line-height: 2rem;
+}
+
+h4 {
+  text-align: center;
+}
+
 
 .footer {
   background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
@@ -387,5 +417,11 @@ label {
     text-align: center;
     letter-spacing: .3rem;
     line-height: 1.5rem;
+  }
+
+  .container-about{
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
