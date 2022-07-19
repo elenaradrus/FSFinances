@@ -382,7 +382,7 @@ label {
     gap: 2rem;
   }
 
-  .messagePassword {
+  .messagePassword, .messagePassword {
     color: white;
     text-align: center;
     letter-spacing: .3rem;

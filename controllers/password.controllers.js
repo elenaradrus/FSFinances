@@ -1,5 +1,6 @@
 const connection = require("../database/sqlDB");
 const mysql = require("mysql");
+const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
@@ -44,7 +45,7 @@ const changePassword = {
         connection.query(updatePassword, (err, result) => {
             if (err) throw err;
             console.log(result)
-            res.send(result)
+            res.json({message: "Contraseña cambiada correctamente"})
         });
     },
     confirmUserGet: (req, res) => {
