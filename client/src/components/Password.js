@@ -30,7 +30,7 @@ const Password = () => {
                 <p className="messagePassword">Inserta tu email para cambiar la contraseña</p>
                 <input type='email' placeholder='email' onChange={(e) => setEmail(e.target.value)} />
                 <button class='btn' onClick={() => checkUserEmail()}>Enviar</button>
-                {message}
+                <p className="textNewPass">{message}</p>
             </div>
 
 

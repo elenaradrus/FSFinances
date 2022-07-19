@@ -28,7 +28,7 @@ const changePassword = {
 
                 const link = `<a href="http://localhost:3000/changepassword/${email}/${token}">Enlace</a>`;
                 console.log(link);
-                res.json({ message: "Se te ha enviado un email con las instrucciones", status: true })
+                res.json({ message: "Se ha enviado un email con las instrucciones", status: true })
                 sendMail("clementinadelparaiso@gmail.com", `${email}`, "Cambiar contraseña", `${link}`)
             } else {
                 console.log('El usuario no existe');

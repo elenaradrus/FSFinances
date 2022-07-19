@@ -33,7 +33,8 @@
         text-align: center;
     }
 
-    .listMessage {
+    .listMessage, .endMonthMessage {
         margin-top: 1rem;
     }
+
 }

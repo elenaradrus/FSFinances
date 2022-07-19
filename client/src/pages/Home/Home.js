@@ -20,6 +20,7 @@ const Home = () => {
 
     const [changeSpending, setChangeSpending] = useState({});
 
+
     const onSpendingChange = (add) => {
         setChangeSpending(add);
     }
@@ -30,7 +31,6 @@ const Home = () => {
     //funcion callback para que cuando se añada una inserccion en gasto, 
     //la lista se actualice automaticamnete pasandole el prop
     const onDataChange = (isChanged) => {
-        console.log('cambia: ', isChanged);
         setChangeList(isChanged);
     }
 
@@ -41,7 +41,7 @@ const Home = () => {
     return ( 
         <div>
             <Nav />
-            <MonthOverview month={month} onChangeMonth={onChangeMonth} changeSpending={changeSpending}/>
+            <MonthOverview month={month} onChangeMonth={onChangeMonth} changeSpending={changeSpending} />
             <div className="containerHome">
                 <div className="left">
                    <MonthIncome month={month}/>

@@ -3,7 +3,7 @@ import React, { Component, useState, useEffect } from "react";
 
 const MonthOverview = ({ month, onChangeMonth, changeSpending }) => {
 
-    const [totalAmount, setTotalAmount] = useState(0)
+
     const [income, setIncome] = useState(0)
     const [monthSaving, setMonthSaving] = useState(0)
     const [response, setResponse] = useState({});
@@ -22,13 +22,10 @@ const MonthOverview = ({ month, onChangeMonth, changeSpending }) => {
         fetch("month-end", requestOptions)
             .then((res) => res.json())
             .then((res) => {
-                console.log('rtx  ha hecho la llamada');
                 if (res.status) {
-                    console.log('rtx status: ', res);
                     setResponse(res);
                 } else {
-                    console.log('rtx if status es false');
-                    setTotalAmount(0);
+                    
                     setIncome(0);
                     setMonthSaving(0);
                 }
@@ -36,7 +33,6 @@ const MonthOverview = ({ month, onChangeMonth, changeSpending }) => {
 
     }, [month, changeSpending]);
 
-    console.log('rtx respose render: ', response);
 
     const getIncome = (response) =>{
         if(response && response.income?.length){

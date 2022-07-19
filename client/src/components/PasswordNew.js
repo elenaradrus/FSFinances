@@ -37,8 +37,8 @@ const PasswordNew = () => {
                     <input type='password' placeholder='contraseña nueva' onChange={(e) => setNewPassword(e.target.value)} />
                     <button class='btn' onClick={() => changePassword()}>Cambiar</button>
                     <div className="messagePassword">
-                        {message}
-                        {messagePass}
+                        <p className="textNewPass">{message}</p>
+                        <p className="textNewPass">{messagePass}</p>
                     </div>
                 </div>
 

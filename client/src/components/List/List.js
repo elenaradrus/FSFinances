@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import "./List.css"
 
-const List = ({ month, onSpendingChange, changeList }) => {
+const List = ({ month, onSpendingChange, changeList, sendAmount }) => {
 
     const [data, setData] = useState('');
     const [message, setMessage] = useState("");
@@ -38,13 +38,21 @@ const List = ({ month, onSpendingChange, changeList }) => {
         )
     };
 
+    const handleOnClick = () => {
+        setMessage("Mes finalizado. A por el siguiente!")
+    }
+
     return (
         <div className="container-dataList">
-            {data.length ? renderSpendings() : 
-            <div className="listMessage"> <p>No tienes gastos para este mes </p></div>}
+            {data.length ? renderSpendings() :
+                <div className="listMessage"> <p>No tienes gastos para este mes </p></div>}
             <div className="container-listBtn">
-                <button className='listBtn'>Finalizar mes</button>
+                <button className='listBtn' onClick={() => handleOnClick()}>Finalizar mes</button>
             </div>
+            <div className="endMonthMessage">
+                <p>{message}</p>
+            </div>
+
 
         </div>
 
