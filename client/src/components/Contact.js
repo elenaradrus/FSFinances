@@ -35,7 +35,11 @@ const Contact = () => {
                     } else {
                         setMessage({ error: res.message });
                     }
-                })
+                });
+
+            setName("");
+            setEmail("");
+            setContent("");
         }
     };
 
@@ -49,10 +53,10 @@ const Contact = () => {
                         message={message}
                     />
                     <div class='data'>
-                        <input type='text' placeholder='nombre' onChange={(e) => setName(e.target.value)} />
-                        <input type='email' placeholder='email' onChange={(e) => setEmail(e.target.value)} />
+                        <input value={name} type='text' placeholder='nombre' onChange={(e) => setName(e.target.value)} />
+                        <input value={email} type='email' placeholder='email' onChange={(e) => setEmail(e.target.value)} />
                         <label>Mensaje</label>
-                        <textarea onChange={(e) => setContent(e.target.value)}></textarea>
+                        <textarea value={content} onChange={(e) => setContent(e.target.value)}></textarea>
                         <button class='btn' onClick={() => sendContactData()}>Enviar</button>
                     </div>
                 </div>

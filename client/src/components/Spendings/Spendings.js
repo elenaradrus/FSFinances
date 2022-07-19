@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import "./Spendings.css"
 import Message from "../Message";
 
-const Spendings = ({month, onDataChange}) => {
+const Spendings = ({ month, onDataChange }) => {
     const [message, setMessage] = useState("");
 
     const [title, setTitle] = useState("");
@@ -37,6 +37,10 @@ const Spendings = ({month, onDataChange}) => {
                 }
             });
 
+        setTitle("");
+        setDay("");
+        setDescription("");
+        setAmount("");
     };
 
     return (
@@ -52,11 +56,10 @@ const Spendings = ({month, onDataChange}) => {
                 </select>
             </div>
 
-            {/* {month} */}
             <div className="container-inputSpendings">
-                <input className='dayInput' placeholder='día' type='number' onChange={(e) => setDay(e.target.value)}></input>
-                <input className='descriptionInput' placeholder='descripción' type='text' onChange={(e) => setDescription(e.target.value)}></input>
-                <input className='amountInput' placeholder='precio' type='number' onChange={(e) => setAmount(e.target.value)}></input>
+                <input value={day} className='dayInput' placeholder='día' type='number' onChange={(e) => setDay(e.target.value)}></input>
+                <input value={description} className='descriptionInput' placeholder='descripción' type='text' onChange={(e) => setDescription(e.target.value)}></input>
+                <input value={amount} className='amountInput' placeholder='precio' type='number' onChange={(e) => setAmount(e.target.value)}></input>
             </div>
 
             <div className='containerBtnSpendings'>

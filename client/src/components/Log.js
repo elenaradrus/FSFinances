@@ -59,7 +59,7 @@ const Log = () => {
                     <input type='password' placeholder='contraseña' onChange={(e) => setPassword(e.target.value)} />
                     <button class='btn' onClick={() => logUser()}>Iniciar sesión</button>
                     <Link className="linkNav linkLog" to={"/registro"}>Registrarse</Link>
-                    <Link className="linkNav linkLog" to={"/registro"}>Olvidé Contraseña</Link>
+                    <Link className="linkNav linkLog" to={"/cambiarcontrasena"}>Olvidé Contraseña</Link>
                 </div>
             </div>
 
