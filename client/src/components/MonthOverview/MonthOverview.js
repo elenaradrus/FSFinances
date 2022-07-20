@@ -10,7 +10,7 @@ const MonthOverview = ({ month, onChangeMonth, changeSpending }) => {
 
     useEffect(() => {
         const userId = localStorage.getItem('idLoggedUser');
-       
+
 
 
         const requestOptions = {
@@ -33,15 +33,17 @@ const MonthOverview = ({ month, onChangeMonth, changeSpending }) => {
     }, [month, changeSpending]);
 
 
-    const getIncome = (response) =>{
-        if(response?.income?.length){
+    const getIncome = (response) => {
+        if (response?.income?.length) {
             return response.income[0].ingreso;
         }
         return 0;
     };
 
     const getSavings = (response) => {
-        return getIncome(response) - response?.totalAmount;
+        return (
+            (getIncome(response) - response?.totalAmount).toFixed(2)
+        );
     }
 
     return (
