@@ -21,7 +21,7 @@ const user = {
             !emailExp.test(email) ||
             !passExp.test(password)
         ) {
-            console.log("campos incorrectos"); //renderizar una pagina de campos incorrectos
+            console.log("campos incorrectos"); 
         } else {
             const getUsers = `SELECT * FROM Usuarios WHERE email = '${email}'`;
             connection.query(getUsers, (err, result) => {
@@ -50,7 +50,6 @@ const user = {
                             ]);
                             connection.query(query, (err, data) => {
                                 if (err) throw err;
-                                console.log(data);
                             });
 
                             res.json({ message: "Registro completado correctamente", status: true })
@@ -70,7 +69,7 @@ const user = {
         connection.query(nameCorrect, (err, rows) => {
             if (rows.length > 0) {
                 bcrypt.compare(passLog, rows[0].contrasena).then(function (result) {
-                    console.log(rows[0]);
+                    
                     if (result) {
                         res.json({ message: "Usuario Correcto", status: true, id: rows[0].id });
                     } else {
@@ -99,7 +98,6 @@ const user = {
 
                 dbo.collection(colection).insertOne(data, function (err, res) {
                     if (err) throw err;
-                    console.log("Documento insertado");
                     db.close();
                 });
             });
@@ -115,7 +113,6 @@ const user = {
         const expectedSavings = req.body.expectedSavings;
         const loggedUser = req.body.loggedUser;
         const idLoggedUser = req.body.idLoggedUser;
-        //console.log(req.body.getId);
 
         if (month && income && expectedSavings) {
             const insertFinanzas = `INSERT INTO Finanzas
@@ -132,8 +129,6 @@ const user = {
             connection.query(dataFinanzas, (err, data) => {
                 if (err) throw err;
                 res.status(201);
-                console.log(data);
-                console.log('Finanzas insertadas en DB');
             });
             res.status(200).json({
                 code: 200,
@@ -193,9 +188,6 @@ const user = {
 
             connection.query(dataSpendings, (err, data) => {
                 if (err) throw err;
-                //res.status(201);
-                console.log(data);
-                console.log('Gastos insertados en DB');
             });
             res.status(200).json({
                 code: 200,
@@ -220,8 +212,6 @@ const user = {
 
         connection.query(getSpendings, (err, result) => {
             if (err) throw err;
-            console.log("result" + result);
-            //res.send(result)
             res.json({ code: 200, data: result });
         });
 
@@ -237,23 +227,18 @@ const user = {
         connection.query(totalSpendings, (err, result) => {
             if (err) throw err;
             const amount = result;
-            //console.log(amount)
             const mapAmount = amount.map((e) => {
                 return e.precio;
-            })
-            console.log(mapAmount);
+            });
 
             const initialValue = 0;
             const sumAmount = mapAmount.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
 
             const totalAmount = parseFloat(sumAmount.toFixed(2));
-            console.log("gastos: ", totalAmount);
 
             connection.query(userMonthIncome, (err, data) => {
                 if (err) throw err;
-                const income = data; 
-                console.log("data", data)
-                //console.log('totalAmount: ', totalAmount);
+                const income = data;
                res.send({ totalAmount, income, status: true });
             });
         });

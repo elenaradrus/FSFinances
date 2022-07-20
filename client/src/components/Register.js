@@ -36,11 +36,6 @@ const Register = () => {
             fetch("sign-up", requestOptions)
                 .then((response) => response.json())
                 .then((res) => {
-                    // setName(res.name)
-                    // setEmail(res.email)
-                    // setPassword(res.password);
-                    //cojo el mensaje del back para mostrarlo en el front si el usuario ya esta registrado
-                    console.log(res.message);
                     if (res.status) {
                         setMessage({ error: res.message });
                         navigate("/");

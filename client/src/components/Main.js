@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Routes, Route } from "react-router-dom";
-import Finance from "./Finance";
 import Contact from "./Contact";
 import Register from "./Register";
 import Log from "./Log";

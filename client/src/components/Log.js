@@ -33,7 +33,6 @@ const Log = () => {
             fetch("login", requestOptions)
                 .then((response) => response.json())
                 .then((res) => {
-                    //console.log(res.message);
                     if (res.status) {
                         setMessage({ error: res.message });
                         localStorage.setItem("idLoggedUser", JSON.stringify(res.id))
@@ -49,7 +48,6 @@ const Log = () => {
     return (
         <div class='container'>
             <div class='cardLog'>
-            {/* <h2 className="titleLog">Fine&Go</h2> */}
                 <Message
                     message={message}
                 />

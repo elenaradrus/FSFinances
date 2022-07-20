@@ -26,8 +26,6 @@ const Home = () => {
     }
 
 
-
-    //const [month, setMonth] = useState('Enero');
     //funcion callback para que cuando se añada una inserccion en gasto, 
     //la lista se actualice automaticamnete pasandole el prop
     const onDataChange = (isChanged) => {

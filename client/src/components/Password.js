@@ -15,7 +15,6 @@ const Password = () => {
         fetch("changepassword", requestOptions)
                 .then((response) => response.json())
                 .then((res) => {
-                    //console.log(res.message);
                     if (res.status) {
                         setMessage(res.message);
                     } else {

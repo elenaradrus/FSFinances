@@ -10,9 +10,7 @@ class Nav extends Component {
                 <h2>Fine&Go</h2>
             </header>
             <nav>
-                {/* <Link to={"/informacion"}>Sobre la aplicación</Link> */}
                 <Link className="linkNav" to={"/informacion"}>Sobre la app</Link>
-                {/* <Link className="linkNav" to={"/home"}>Home</Link> */}
                 <Link className="linkNav" to={"/finanzas"}>Mis finanzas</Link>
                 <Link className="linkNav" to={"/contacto"}>Contacto</Link>
                 <Link className="linkNav" to={"/"} onClick={() => localStorage.clear()}>Salir</Link>

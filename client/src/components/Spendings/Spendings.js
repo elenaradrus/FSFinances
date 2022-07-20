@@ -18,7 +18,6 @@ const Spendings = ({ month, onDataChange }) => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ title: title, month: month, day: day, description: description, amount: amount, getId }),
-            //idLoggedUser 
         };
 
         fetch("add-spending", requestOptions)
